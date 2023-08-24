@@ -1,0 +1,43 @@
+{
+  "name": "@mirasys/nestjs-jetstream-transporter",
+  "version": "1.0.1",
+  "description": "A custom transporter for integrating NATS Jetstream with NestJS",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "keywords": [
+    "nats",
+    "nestjs",
+    "jetstream",
+    "transporter"
+  ],
+  "author": "Mirasys Oy",
+  "email": "info@mirasys.com",
+  "license": "MIT",
+  "dependencies": {
+    "@nestjs/common": "10.2.1",
+    "@nestjs/microservices": "10.2.1",
+    "nats": "2.16.0"
+  },
+  "devDependencies": {
+    "@nestjs/testing": "^10.2.1",
+    "@types/jest": "^29.5.4",
+    "commitizen": "^4.3.0",
+    "cz-conventional-changelog": "^3.3.0",
+    "jest": "^29.6.3",
+    "standard-version": "^9.5.0",
+    "ts-jest": "^29.1.1",
+    "typescript": "^5.1.6"
+  },
+  "prepublish": "tsc",
+  "scripts": {
+    "build": "tsc",
+    "test": "jest --config=jest.config.json --coverage",
+    "prepublish": "npm test",
+    "bump": "standard-version"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
+}
