@@ -1,6 +1,12 @@
 # nestjs-jetstream-transporter
 A custom transporter for integrating NATS with NestJS microservices. It provides an implementation for receiving and sending messages using the NATS messaging system.
 
+## Installation
+
+```
+npm install nestjs-jetstream-transporter
+```
+
 ## NestJS NATS Config
 
 In app.module.ts, import the NatsService from the lib, provide NAST connection options and NAST consumer options, then put these into the App providers.
