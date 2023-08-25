@@ -10,9 +10,10 @@ import { ConnectionOptions } from 'nats';
 
 describe('NatsService', () => {
   let natsService: NatsService;
+  let testingModule: TestingModule;
 
   beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule({
+    testingModule = await Test.createTestingModule({
       providers: [
         NatsService,
         {
@@ -26,7 +27,7 @@ describe('NatsService', () => {
       ],
     }).compile();
 
-    natsService = module.get<NatsService>(NatsService);
+    natsService = testingModule.get(NatsService);
   });
 
   it('should be defined', () => {
