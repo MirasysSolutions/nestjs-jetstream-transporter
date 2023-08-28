@@ -1,6 +1,6 @@
 {
   "name": "@mirasys/nestjs-jetstream-transporter",
-  "version": "1.0.1",
+  "version": "1.0.0",
   "description": "A custom transporter for integrating NATS Jetstream with NestJS",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -13,6 +13,16 @@
   "author": "Mirasys Oy",
   "email": "info@mirasys.com",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:MirasysSolutions/nestjs-jetstream-transporter.git"
+  },
+  "bugs": {
+    "url": "https://github.com/MirasysSolutions/nestjs-jetstream-transporter/issues"
+  },
+  "engines": {
+    "node": ">= 18.0"
+  },
   "dependencies": {
     "@nestjs/common": "10.2.1",
     "@nestjs/core": "^10.2.1",
