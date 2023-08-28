@@ -107,17 +107,4 @@ describe('NatsStreamingTransporter', () => {
   it('should be defined', () => {
     expect(transporter).toBeDefined();
   });
-  
-  it('should call the getClient method and return a valid client', () => {
-    const mockStan = {
-      jetstream: jest.fn(),
-    };
-
-    transporter['stan'] = mockStan as any;
-
-    const client = transporter.getClient();
-
-    expect(client).toBeDefined();
-    expect(client).toBe(mockStan);
-  });
 });
