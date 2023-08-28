@@ -4,7 +4,7 @@ A custom transporter for integrating NATS with NestJS microservices. It provides
 ## Installation
 
 ```
-npm install nestjs-jetstream-transporter
+npm i @mirasys/nestjs-jetstream-transporter
 ```
 
 ## NestJS NATS Config
