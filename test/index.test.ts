@@ -1,14 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { NatsService, NatsStreamingTransporter } from '../src/index';
-import {
-  AckPolicy,
-  ConsumerConfig,
-  DeliverPolicy,
-  ReplayPolicy,
-} from 'nats/lib/jetstream/jsapi_types';
+import { AckPolicy, ConsumerConfig, DeliverPolicy, ReplayPolicy } from 'nats/lib/jetstream/jsapi_types';
 import { ConnectionOptions } from 'nats';
 
-describe.skip('NatsService', () => {
+describe('NatsService', () => {
   let natsService: NatsService;
   let testingModule: TestingModule;
 
@@ -60,7 +55,7 @@ describe.skip('NatsService', () => {
   });
 });
 
-describe.skip('NatsStreamingTransporter', () => {
+describe('NatsStreamingTransporter', () => {
   let transporter: NatsStreamingTransporter;
 
   beforeEach(() => {
@@ -98,10 +93,7 @@ describe.skip('NatsStreamingTransporter', () => {
       replay_policy: ReplayPolicy.Instant,
     };
 
-    transporter = new NatsStreamingTransporter(
-      connectionOptions,
-      consumerOptions
-    );
+    transporter = new NatsStreamingTransporter(connectionOptions, consumerOptions);
   });
 
   it('should be defined', () => {
