@@ -26,6 +26,7 @@
   "devDependencies": {
     "@babel/core": "^7.22.11",
     "@babel/preset-env": "^7.22.10",
+    "@babel/preset-typescript": "^7.22.11",
     "@nestjs/testing": "^10.2.1",
     "@types/jest": "^29.5.4",
     "commitizen": "^4.3.0",
@@ -38,7 +39,7 @@
   "prepublish": "tsc",
   "scripts": {
     "build": "tsc",
-    "test": "jest --config=jest.config.json --coverage",
+    "test": "babel-node node_modules/.bin/jest --config=jest.config.json --coverage",
     "prepublish": "npm test",
     "bump": "standard-version"
   },
