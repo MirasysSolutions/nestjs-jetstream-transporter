@@ -40,8 +40,7 @@
   "scripts": {
     "build": "tsc",
     "test": "jest --config=jest.config.json",
-    "prepublish": "npm test",
-    "bump": "standard-version"
+    "release": "npx standard-version && git push --follow-tags origin main"
   },
   "config": {
     "commitizen": {
