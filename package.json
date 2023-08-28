@@ -24,6 +24,8 @@
     "rxjs": "^7.8.1"
   },
   "devDependencies": {
+    "@babel/core": "^7.22.11",
+    "@babel/preset-env": "^7.22.10",
     "@nestjs/testing": "^10.2.1",
     "@types/jest": "^29.5.4",
     "commitizen": "^4.3.0",
