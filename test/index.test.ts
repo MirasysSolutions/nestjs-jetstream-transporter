@@ -8,7 +8,7 @@ import {
 } from 'nats/lib/jetstream/jsapi_types';
 import { ConnectionOptions } from 'nats';
 
-describe.skip('NatsService', () => {
+describe('NatsService', () => {
   let natsService: NatsService;
   let testingModule: TestingModule;
 
@@ -60,7 +60,7 @@ describe.skip('NatsService', () => {
   });
 });
 
-describe.skip('NatsStreamingTransporter', () => {
+describe('NatsStreamingTransporter', () => {
   let transporter: NatsStreamingTransporter;
 
   beforeEach(() => {
@@ -106,5 +106,18 @@ describe.skip('NatsStreamingTransporter', () => {
 
   it('should be defined', () => {
     expect(transporter).toBeDefined();
+  });
+  
+  it('should call the getClient method and return a valid client', () => {
+    const mockStan = {
+      jetstream: jest.fn(),
+    };
+
+    transporter['stan'] = mockStan as any;
+
+    const client = transporter.getClient();
+
+    expect(client).toBeDefined();
+    expect(client).toBe(mockStan);
   });
 });

@@ -1,7 +1,6 @@
 {
   "transform": {
-    "^.+\\.(t|j)s$": "ts-jest",
-    "^.+\\.tsx?$": "babel-jest"
+    "^.+\\.(t|j)s$": "ts-jest"
   },
   "testRegex": "/test/.*",
   "testEnvironment": "node",
