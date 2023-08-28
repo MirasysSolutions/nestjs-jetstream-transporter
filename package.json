@@ -39,7 +39,7 @@
   "prepublish": "tsc",
   "scripts": {
     "build": "tsc",
-    "test": "jest --config=jest.config.json --coverage",
+    "test": "jest --config=jest.config.json",
     "prepublish": "npm test",
     "bump": "standard-version"
   },
