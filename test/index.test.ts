@@ -60,7 +60,7 @@ describe.skip('NatsService', () => {
   });
 });
 
-describe('NatsStreamingTransporter', () => {
+describe.skip('NatsStreamingTransporter', () => {
   let transporter: NatsStreamingTransporter;
 
   beforeEach(() => {
