@@ -45,7 +45,7 @@
   },
   "prepublish": "tsc",
   "scripts": {
-    "build": "tsc",
+    "build": "tsc --project tsconfig.build.json",
     "test": "jest --config=jest.config.json",
     "release": "npx standard-version && git push --follow-tags origin main"
   },

@@ -2,8 +2,7 @@
   "transform": {
     "^.+\\.(t|j)s$": "ts-jest"
   },
-  "rootDir": "src",
-  "testRegex": "/test/.*",
+  "testRegex": ".*\\.test\\.ts$",
   "testEnvironment": "node",
   "moduleFileExtensions": ["ts", "js"]
 }

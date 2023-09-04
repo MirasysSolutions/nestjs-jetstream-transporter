@@ -1,5 +1,5 @@
 import { ConnectionOptions, ConsumerConfig, AckPolicy, DeliverPolicy, ReplayPolicy } from 'nats';
-import { NatsStreamingTransporter } from '../index';
+import { NatsStreamingTransporter } from '../src/index';
 
 describe('NatsStreamingTransporter', () => {
   let transporter: NatsStreamingTransporter;
