@@ -3,6 +3,7 @@
     "^.+\\.(t|j)s$": "ts-jest",
     "^.+\\.tsx?$": "babel-jest"
   },
+  "rootDir": "src",
   "testRegex": "/test/.*",
   "testEnvironment": "node",
   "moduleFileExtensions": ["ts", "js"]
