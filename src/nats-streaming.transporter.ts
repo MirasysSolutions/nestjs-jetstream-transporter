@@ -55,6 +55,7 @@ export class NatsStreamingTransporter extends Server implements CustomTransportS
         const cinfo = await jsm.consumers.add(streamName, {
           ...this.consumerOptions,
           durable_name: this.consumerOptions.durable_name ?? hashName,
+          filter_subject: subject,
         });
 
         const c = await js.consumers.get(streamName, cinfo.name);
