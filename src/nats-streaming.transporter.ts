@@ -45,7 +45,7 @@ export class NatsStreamingTransporter extends Server implements CustomTransportS
         await jsm.streams.add({
           name: streamName,
           subjects: [`${streamName}.*`],
-          retention: RetentionPolicy.Interest,
+          retention: RetentionPolicy.Limits,
           storage: StorageType.Memory,
         });
 
