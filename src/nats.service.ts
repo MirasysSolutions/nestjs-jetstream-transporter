@@ -2,8 +2,12 @@ import { Inject, Injectable } from '@nestjs/common';
 import { NatsStreamingTransporter } from './nats-streaming.transporter';
 import { ConnectionOptions, ConsumerConfig, RetentionPolicy, StorageType, StringCodec } from 'nats';
 
+interface PublisherClient {
+  publish(topic: string, data: string): Promise<void>;
+}
+
 @Injectable()
-export class NatsService {
+export class NatsService implements PublisherClient {
   private transporter: NatsStreamingTransporter;
 
   constructor(
