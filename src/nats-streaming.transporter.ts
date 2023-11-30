@@ -42,6 +42,13 @@ export class NatsStreamingTransporter extends Server implements CustomTransportS
       registerdPatterns.forEach(async (subject) => {
         // add stream
         const streamName = subject.split('.')[0];
+        const streamConfig = {
+          name: streamName,
+          subjects: [`${streamName}.*`],
+          retention: RetentionPolicy.Limits,
+          storage: StorageType.Memory,
+        };
+        console.log(`Creating stream ${streamName} with config:` + JSON.stringify(streamConfig, null, 2));
         await jsm.streams.add({
           name: streamName,
           subjects: [`${streamName}.*`],
@@ -72,7 +79,7 @@ export class NatsStreamingTransporter extends Server implements CustomTransportS
             this.transformToObservable(await handler(data, msg));
           },
         });
-        console.log(`Subscribed to ${subject} event with consumer ${cinfo.name} in stream ${cinfo.stream_name}`);
+        console.log(`Subscribed to ${subject} event with consumer ${cinfo.name} in stream ${cinfo.stream_name}.`);
       });
     }
   }
