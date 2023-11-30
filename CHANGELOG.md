@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.1.0](https://github.com/MirasysSolutions/nestjs-jetstream-transporter/compare/v1.0.12...v1.1.0) (2023-11-30)
+
+
+### Features
+
+* refacor nats service ([cb82f5e](https://github.com/MirasysSolutions/nestjs-jetstream-transporter/commit/cb82f5eace19e6dff683818d35915ec9a305c0c7))
+
 ### [1.0.12](https://github.com/MirasysSolutions/nestjs-jetstream-transporter/compare/v1.0.11...v1.0.12) (2023-11-30)
 
 ### [1.0.11](https://github.com/MirasysSolutions/nestjs-jetstream-transporter/compare/v1.0.10...v1.0.11) (2023-11-30)
