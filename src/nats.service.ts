@@ -29,7 +29,7 @@ export class NatsService {
     await jsm.streams.add({
       name: streamName,
       subjects: [`${streamName}.*`],
-      retention: RetentionPolicy.Interest,
+      retention: RetentionPolicy.Limits,
       storage: StorageType.Memory,
     });
     // publish
