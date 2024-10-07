@@ -24,19 +24,37 @@ export class NatsService implements PublisherClient {
   }
 
   async publish(topic: string, data: string): Promise<void> {
-    const client = this.transporter.getClient();
-    const js = client.jetstream();
-    const sc = StringCodec();
-    // create stream
-    const jsm = await client.jetstreamManager();
-    const streamName = topic.split('.')[0];
-    await jsm.streams.add({
-      name: streamName,
-      subjects: [`${streamName}.*`],
-      retention: RetentionPolicy.Limits,
-      storage: StorageType.Memory,
-    });
-    // publish
-    js.publish(topic, sc.encode(data));
+    try {
+      const client = this.transporter.getClient();
+      const js = client.jetstream();
+      const sc = StringCodec();
+
+      // create stream
+      const jsm = await client.jetstreamManager();
+      const streamName = topic.split('.')[0];
+
+      try {
+        await jsm.streams.add({
+          name: streamName,
+          subjects: [`${streamName}.*`],
+          retention: RetentionPolicy.Limits,
+          storage: StorageType.Memory,
+        });
+      } catch (streamError) {
+        console.error(`Error adding stream: ${streamName}`, streamError);
+        throw streamError;
+      }
+
+      // publish
+      try {
+        await js.publish(topic, sc.encode(data));
+      } catch (publishError) {
+        console.error(`Error publishing message to topic: ${topic}`, publishError);
+        throw publishError;
+      }
+    } catch (error) {
+      console.error('Error in publish function', error);
+      throw error;
+    }
   }
 }
