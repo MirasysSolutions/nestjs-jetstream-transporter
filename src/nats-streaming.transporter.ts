@@ -44,7 +44,7 @@ export class NatsStreamingTransporter extends Server implements CustomTransportS
         const streamName = subject.split('.')[0].toUpperCase();
         const streamConfig = {
           name: streamName,
-          subjects: [`${subject.split('.')[0]}.*`],
+          subjects: [`${streamName.toLowerCase()}.*`],
           retention: RetentionPolicy.Limits,
           storage: StorageType.File,
         };
@@ -65,28 +65,40 @@ export class NatsStreamingTransporter extends Server implements CustomTransportS
         }
 
         // add a new durable consumer
+        console.log(`Adding consumer for subject ${subject} in stream ${streamName}.`);
         const hashName = btoa(`${this.connectionOptions.name}.${subject}`);
-        const cinfo = await jsm.consumers.add(streamName, {
-          ...this.consumerOptions,
-          durable_name: this.consumerOptions.durable_name ?? hashName,
-          filter_subject: subject,
-        });
-        const c = await js.consumers.get(streamName, cinfo.name);
+        try {
+          const cinfo = await jsm.consumers.add(streamName, {
+            ...this.consumerOptions,
+            durable_name: this.consumerOptions.durable_name ?? hashName,
+            filter_subject: subject,
+          });
 
-        // consume
-        console.log(`Creating consumer ${cinfo.name} in stream ${cinfo.stream_name} for subject ${subject}.`);
-        await c.consume({
-          callback: async (msg) => {
-            const handler = this.getHandlerByPattern(subject);
-            const sc = StringCodec();
-            const data = JSON.parse(sc.decode(msg.data)) as {
-              pattern: string;
-              data: any;
-            };
-            this.transformToObservable(await handler(data, msg));
-          },
-        });
-        console.log(`Subscribed to ${subject} event with consumer ${cinfo.name} in stream ${cinfo.stream_name}.`);
+          const c = await js.consumers.get(streamName, cinfo.name);
+
+          // consume
+          console.log(`Creating consumer ${cinfo.name} in stream ${cinfo.stream_name} for subject ${subject}.`);
+          await c.consume({
+            callback: async (msg) => {
+              const handler = this.getHandlerByPattern(subject);
+              const sc = StringCodec();
+              const data = JSON.parse(sc.decode(msg.data)) as {
+                pattern: string;
+                data: any;
+              };
+              this.transformToObservable(await handler(data, msg));
+            },
+          });
+          console.log(`Subscribed to ${subject} event with consumer ${cinfo.name} in stream ${cinfo.stream_name}.`);
+        } catch (err) {
+          if (err.message.includes('consumer already exists')) {
+            console.log(`Consumer for subject ${subject} in stream ${streamName} already exists, skipping creation.`);
+            return;
+          } else {
+            console.error(`Error creating consumer for subject ${subject} in stream ${streamName}:`, err);
+            return;
+          }
+        }
       });
     }
   }
