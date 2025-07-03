@@ -46,15 +46,28 @@ export class NatsStreamingTransporter extends Server implements CustomTransportS
           name: streamName,
           subjects: [`${streamName}.*`],
           retention: RetentionPolicy.Limits,
-          storage: StorageType.Memory,
+          storage: StorageType.File,
         };
-        console.log(`Creating stream ${streamName} with config:` + JSON.stringify(streamConfig, null, 2));
-        await jsm.streams.add({
-          name: streamName,
-          subjects: [`${streamName}.*`],
-          retention: RetentionPolicy.Limits,
-          storage: StorageType.Memory,
-        });
+        // Check if the stream already exists
+        try {
+          await jsm.streams.get(streamName);
+          console.log(`Stream ${streamName} already exists, skipping creation.`);
+        } catch (err) {
+          if (err.message.includes('stream not found')) {
+            // Stream does not exist, create it
+            console.log(`Stream ${streamName} does not exist, creating it.`);
+            await jsm.streams.add({
+              name: streamName,
+              subjects: [`${streamName}.*`],
+              retention: RetentionPolicy.Limits,
+              storage: StorageType.Memory,
+            });
+            console.log(`Stream ${streamName} with config created:` + JSON.stringify(streamConfig, null, 2));
+          } else {
+            console.error(`Error checking stream ${streamName}:`, err);
+            return;
+          }
+        }
 
         // add a new durable consumer
         const hashName = btoa(`${this.connectionOptions.name}.${subject}`);
