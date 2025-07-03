@@ -41,10 +41,10 @@ export class NatsStreamingTransporter extends Server implements CustomTransportS
 
       registerdPatterns.forEach(async (subject) => {
         // add stream
-        const streamName = subject.split('.')[0];
+        const streamName = subject.split('.')[0].toUpperCase();
         const streamConfig = {
           name: streamName,
-          subjects: [`${streamName}.*`],
+          subjects: [`${streamName.toLowerCase()}.*`],
           retention: RetentionPolicy.Limits,
           storage: StorageType.File,
         };
@@ -56,13 +56,8 @@ export class NatsStreamingTransporter extends Server implements CustomTransportS
           if (err.message.includes('stream not found')) {
             // Stream does not exist, create it
             console.log(`Stream ${streamName} does not exist, creating it.`);
-            await jsm.streams.add({
-              name: streamName,
-              subjects: [`${streamName}.*`],
-              retention: RetentionPolicy.Limits,
-              storage: StorageType.Memory,
-            });
-            console.log(`Stream ${streamName} with config created:` + JSON.stringify(streamConfig, null, 2));
+            await jsm.streams.add(streamConfig);
+            console.log(`Stream ${streamName} created:` + JSON.stringify(streamConfig, null, 2));
           } else {
             console.error(`Error checking stream ${streamName}:`, err);
             return;
