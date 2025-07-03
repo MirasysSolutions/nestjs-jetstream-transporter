@@ -1,6 +1,6 @@
 {
   "name": "@mirasys/nestjs-jetstream-transporter",
-  "version": "1.1.5",
+  "version": "1.1.6",
   "description": "A custom transporter for integrating NATS Jetstream with NestJS",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
