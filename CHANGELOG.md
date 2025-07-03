@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.4](https://github.com/MirasysSolutions/nestjs-jetstream-transporter/compare/v1.1.3...v1.1.4) (2025-07-03)
+
+
+### Bug Fixes
+
+* subjects & remove stream creation in service ([3e3117e](https://github.com/MirasysSolutions/nestjs-jetstream-transporter/commit/3e3117e8e43f20de3c154f70193679b05be159e2))
+
 ### [1.1.3](https://github.com/MirasysSolutions/nestjs-jetstream-transporter/compare/v1.1.2...v1.1.3) (2025-07-03)
 
 ### [1.1.2](https://github.com/MirasysSolutions/nestjs-jetstream-transporter/compare/v1.1.1...v1.1.2) (2025-07-03)
