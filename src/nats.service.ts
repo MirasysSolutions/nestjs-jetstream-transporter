@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { NatsStreamingTransporter } from './nats-streaming.transporter';
-import { ConnectionOptions, ConsumerConfig, RetentionPolicy, StorageType, StringCodec } from 'nats';
+import { ConnectionOptions, ConsumerConfig, StringCodec } from 'nats';
 
 interface PublisherClient {
   publish(topic: string, data: string): Promise<void>;
@@ -29,23 +29,6 @@ export class NatsService implements PublisherClient {
       const js = client.jetstream();
       const sc = StringCodec();
 
-      // create stream
-      const jsm = await client.jetstreamManager();
-      const streamName = topic.split('.')[0];
-
-      try {
-        await jsm.streams.add({
-          name: streamName,
-          subjects: [`${streamName}.*`],
-          retention: RetentionPolicy.Limits,
-          storage: StorageType.Memory,
-        });
-      } catch (streamError) {
-        console.error(`Error adding stream: ${streamName}`, streamError);
-        throw streamError;
-      }
-
-      // publish
       try {
         await js.publish(topic, sc.encode(data));
       } catch (publishError) {

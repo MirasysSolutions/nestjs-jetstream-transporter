@@ -44,7 +44,7 @@ export class NatsStreamingTransporter extends Server implements CustomTransportS
         const streamName = subject.split('.')[0].toUpperCase();
         const streamConfig = {
           name: streamName,
-          subjects: [`${streamName.toLowerCase()}.*`],
+          subjects: [`${subject.split('.')[0]}.*`],
           retention: RetentionPolicy.Limits,
           storage: StorageType.File,
         };
@@ -66,16 +66,15 @@ export class NatsStreamingTransporter extends Server implements CustomTransportS
 
         // add a new durable consumer
         const hashName = btoa(`${this.connectionOptions.name}.${subject}`);
-
         const cinfo = await jsm.consumers.add(streamName, {
           ...this.consumerOptions,
           durable_name: this.consumerOptions.durable_name ?? hashName,
           filter_subject: subject,
         });
-
         const c = await js.consumers.get(streamName, cinfo.name);
 
         // consume
+        console.log(`Creating consumer ${cinfo.name} in stream ${cinfo.stream_name} for subject ${subject}.`);
         await c.consume({
           callback: async (msg) => {
             const handler = this.getHandlerByPattern(subject);
