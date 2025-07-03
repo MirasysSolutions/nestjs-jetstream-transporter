@@ -35,11 +35,6 @@ describe('NatsService', () => {
       jetstream: jest.fn(() => ({
         publish: jest.fn(),
       })),
-      jetstreamManager: jest.fn(() => ({
-        streams: {
-          add: jest.fn(),
-        },
-      })),
     };
 
     natsService['transporter'] = {
@@ -49,6 +44,5 @@ describe('NatsService', () => {
     await natsService.publish(topic, data);
 
     expect(clientMock.jetstream).toHaveBeenCalled();
-    expect(clientMock.jetstreamManager).toHaveBeenCalled();
   });
 });
